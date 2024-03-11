@@ -472,6 +472,22 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 2
+      },
+      {
+        "slug": "anagram",
+        "name": "Anagram",
+        "uuid": "6ebd7760-7bdb-45a8-8733-919666b49e8e",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1
+      },
+      {
+        "slug": "pig-latin",
+        "name": "Pig Latin",
+        "uuid": "95b58164-3289-4ffb-864b-27354ebf39eb",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1
       }
     ]
   },

@@ -1,0 +1,13 @@
+{
+	"authors": [
+		"Andrea Manzini"
+	],
+	"copyright": "Copyright © 2024, Andrea Manzini",
+	"dependencies": {
+		"logicless": "~>0.1.7",
+		"painlessjson": "~>1.4.0",
+	},
+	"description": "Test generator for pig-latin exercise",
+	"license": "MIT",
+	"name": "gen"
+}

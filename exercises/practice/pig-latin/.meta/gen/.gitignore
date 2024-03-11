@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/gen
+gen.so
+gen.dylib
+gen.dll
+gen.a
+gen.lib
+gen-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst
