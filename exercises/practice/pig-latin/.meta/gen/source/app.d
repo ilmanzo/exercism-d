@@ -48,7 +48,7 @@ void main(string[] args)
 }
 
 immutable string tlate = "
-module {{slug}}
+module {{slug}};
 
 {{#testcase}}// --- {{description}} ---
 unittest {
