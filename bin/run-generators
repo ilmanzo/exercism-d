@@ -13,8 +13,11 @@ else
   exit 1
 fi
 
+# clone or update problem specification definition from master repository
 PROBLEM_SPEC_REPO="https://github.com/exercism/problem-specifications.git"
-pushd .. && git clone ${PROBLEM_SPEC_REPO} && popd 
+PROBLEM_SPEC_DIR="problem-specifications"
+test -d ../${PROBLEM_SPEC_DIR} && rm -rf ../${PROBLEM_SPEC_DIR}
+pushd .. && git clone --depth 1 ${PROBLEM_SPEC_REPO} ${PROBLEM_SPEC_DIR} && popd 
 
 
 echo "[INFO] updating cached 'problem-specifications' data..."
@@ -26,25 +29,26 @@ failed_generators=""
 github_token=$1
 
 echo "[INFO] updating exercises"
-for generator in ./exercises/practice/*/.meta/gen.d; do
+for generator in ./exercises/practice/*/.meta/gen; do
   exercise=$(echo "${generator}" | cut -d/ -f4)
   echo "[INFO] updating ${exercise}"
   $configlet_path sync --offline --update -e "${exercise}"
-  echo dub run "${generator}" -github_token="${github_token}" 
-  #if ! GO111MODULE=off go run "${generator}" -github_token="${github_token}" > /dev/null; then
-  #        echo "[ERROR] failed to run generator for ${exercise}"
-  #        failed_generators="${exercise} ${failed_generators}"
-  #fi
+  pushd $generator
+  DFLAGS='-J=.' dub -q run < ../../../../../../${PROBLEM_SPEC_DIR}/exercises/${exercise}/canonical-data.json  > ../../source/${exercise}.d
+  if [ $? -ne 0 ]; then 
+    echo "[ERROR] failed to run generator for ${exercise}"
+    failed_generators="${exercise} ${failed_generators}"
+  fi
+  popd 
 done
 
 if [ -n "${failed_generators}" ]
 then
-      echo "[ERROR] generator(s) failed, please manually re-run by using 'GO111MODULE=off go run <path to gen.go>':"
+      echo "[ERROR] generator(s) failed, please manually re-run:"
       for generator in ${failed_generators}
       do
           echo "* ${generator}"
       done
-      echo "[NOTE] if error 'json: cannot unmarshal object into Go value of type []gen.Commit' occurs, try to provide Github access token by using '$0 <token>'"
       exit 1
 fi
 

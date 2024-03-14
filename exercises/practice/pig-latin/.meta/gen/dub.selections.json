@@ -2,8 +2,10 @@
 	"fileVersion": 1,
 	"versions": {
 		"d-unit": "0.8.2",
+		"darg": "0.1.0",
 		"diet-ng": "1.8.1",
 		"djinja": "0.1.0-beta.2",
+		"djinn": "0.1.1",
 		"dunit": "1.0.16",
 		"eventcore": "0.9.28",
 		"libasync": "0.8.6",

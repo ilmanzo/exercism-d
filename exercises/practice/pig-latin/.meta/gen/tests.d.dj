@@ -1,0 +1,9 @@
+[: foreach(suite; testsuites){:]
+// --- [= suite.description ] ---
+unittest {
+	[: foreach(c; suite.cases) { 
+		auto input=c.input["phrase"]; :]
+		assert(translate("[= input ]") == "[= c.expected]");
+	[: } :]
+};
+[: } :]
